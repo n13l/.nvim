@@ -78,4 +78,4 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 vim.keymap.set("n", "<F4>", "<cmd>Lex 30<cr>", { desc = "File browser" })
 
-vim.keymap.set("v", "<C-c>", '"+y', { desc = "Copy to clipboard" })
+vim.opt.clipboard = "unnamedplus"
