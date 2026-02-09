@@ -22,6 +22,8 @@ local function apply_colors()
     vim.api.nvim_set_hl(0, "LineNr", { ctermfg = 240 })
     vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = 236 })
     vim.api.nvim_set_hl(0, "Normal", { ctermbg = 16 })
+    vim.api.nvim_set_hl(0, "StatusLine", { ctermbg = 236, ctermfg = 249 })
+    vim.api.nvim_set_hl(0, "StatusLineNC", { ctermbg = 234, ctermfg = 243 })
   end
 end
 
@@ -69,6 +71,8 @@ end, { desc = "Toggle colorscheme" })
 
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
+vim.g.netrw_keepdir = 0
+vim.g.netrw_fastbrowse = 0
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "netrw",
