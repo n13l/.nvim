@@ -74,6 +74,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.conceallevel = 2
     vim.opt_local.concealcursor = "nvic"
     vim.diagnostic.enable(false, { bufnr = 0 })
+    vim.opt_local.statusline = "%{fnamemodify(b:netrw_curdir, ':~')}"
   end,
 })
 vim.keymap.set("n", "<F4>", "<cmd>Lex 30<cr>", { desc = "File browser" })
