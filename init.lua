@@ -16,6 +16,8 @@ local function apply_colors()
     vim.api.nvim_set_hl(0, "LineNr", { fg = "#555555" })
     vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#333333" })
     vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
+    vim.api.nvim_set_hl(0, "StatusLine", { bg = "#333333", fg = "#aaaaaa" })
+    vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#222222", fg = "#777777" })
   else
     vim.api.nvim_set_hl(0, "LineNr", { ctermfg = 240 })
     vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = 236 })
