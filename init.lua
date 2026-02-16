@@ -79,6 +79,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.conceallevel = 2
     vim.opt_local.concealcursor = "nvic"
+    vim.api.nvim_set_hl(0, "Conceal", { fg = "#6e738d", bg = "NONE" })
     vim.diagnostic.enable(false, { bufnr = 0 })
     vim.opt_local.statusline = "%{fnamemodify(b:netrw_curdir, ':~')}"
   end,
