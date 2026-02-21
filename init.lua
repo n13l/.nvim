@@ -82,6 +82,38 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_set_hl(0, "Conceal", { fg = "#6e738d", bg = "NONE" })
     vim.diagnostic.enable(false, { bufnr = 0 })
     vim.opt_local.statusline = "%{fnamemodify(b:netrw_curdir, ':~')}"
+
+    vim.keymap.set("n", "<CR>", function()
+      local word = vim.fn["netrw#Call"]("NetrwGetWord")
+      if word == "" or word == "../" or word == "./" then
+        return vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes("<Plug>NetrwLocalBrowseCheck", true, true, true),
+          "n", false)
+      end
+      local curdir = vim.b.netrw_curdir or ""
+      local full = curdir .. "/" .. word
+      local ftype = vim.fn.getftype(full)
+      if ftype ~= "link" then
+        return vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes("<Plug>NetrwLocalBrowseCheck", true, true, true),
+          "n", false)
+      end
+      local resolved = vim.fn.resolve(full)
+      if vim.fn.isdirectory(resolved) == 1 then
+        vim.w.netrw_treetop = resolved
+        vim.b.netrw_curdir = resolved
+        vim.cmd("let w:netrw_treedict = {}")
+        vim.cmd.Explore(vim.fn.fnameescape(resolved))
+      else
+        local chgwin = vim.g.netrw_chgwin or 0
+        if chgwin > 0 and vim.api.nvim_win_is_valid(vim.fn.win_getid(chgwin)) then
+          vim.cmd(chgwin .. "wincmd w")
+        else
+          vim.cmd("wincmd p")
+        end
+        vim.cmd.edit(vim.fn.fnameescape(resolved))
+      end
+    end, { buffer = true, desc = "netrw: follow symlinks" })
   end,
 })
 vim.keymap.set("n", "<F4>", "<cmd>Lex 30<cr>", { desc = "File browser" })
