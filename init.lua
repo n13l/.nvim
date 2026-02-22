@@ -119,14 +119,14 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set("n", "<F4>", "<cmd>Lex 30<cr>", { desc = "File browser" })
 
 vim.g.clipboard = {
-  name = "OSC 52",
+  name = "xclip",
   copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    ["+"] = "xclip -selection clipboard",
+    ["*"] = "xclip -selection primary",
   },
   paste = {
-    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    ["+"] = "xclip -selection clipboard -o",
+    ["*"] = "xclip -selection primary -o",
   },
 }
 vim.keymap.set("v", "<C-c>", '"+y', { desc = "Copy to clipboard" })
